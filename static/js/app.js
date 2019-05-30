@@ -35,54 +35,66 @@ function buildCharts(sample) {
      var otu_ids = sampleNames.otu_ids;
      var otu_labels = sampleNames.otu_labels;
      var sample_values = sampleNames.sample_values;
-     //otu10 i distinct color b/c not being used
-    var otu_10 = otu_ids.slice(0,10);
-    var otulabel_10 = otu_labels.slice(0,10);
-    var sample_10 = sample_values.slice(0,10)
+    //  //otu10 i distinct color b/c not being used
+    // var otu_10 = otu_ids.slice(0,10);
+    // var otulabel_10 = otu_labels.slice(0,10);
+    // var sample_10 = sample_values.slice(0,10)
 
+    otuData = [];
+    otuData = otu_ids.map((d, i) => {
+      return {otu_id: d, sample_value: sample_values[i], otu_label: otu_labels[i]}
+    });
+
+    // Sort data by sample_values and select top 10 values
+    otuData.sort((a, b) => b.sample_value-a.sample_value);
+    otuData = otuData.slice(0,10);
 
     
 
     // @TODO: Build a Bubble Chart using the sample data
     var trace1 = {
-      x:otu_ids,
-      y:sample_values,
-      text:otu_labels,
+      x: otuData.map(d => d.otu_id),
+      y: otuData.map(d => d.sample_value),
+      text: otuData.map(d => d.otu_label),
       mode: 'markers',
       marker: {
-        size:sample_values,
-        color:otu_ids
+        color: otuData.map(d => d.otu_id),
+        size: otuData.map(d => d.sample_value)
       }
+    
     };
-    
+ 
     var data = [trace1];
-    
+ 
     var layout = {
-      title: 'Marker Size',
+      title: '',
       showlegend: false,
       height: 600,
-      width: 800
+      width: 1200
     };
-    
-    Plotly.plot("bubble",data,layout)
+ 
+    Plotly.plot("bubble",data,layout);
+ 
   
 
     // @TODO: Build a Pie Chart
-    // HINT: You will need to use slice() to grab the top 10 sample_values,
-    // otu_ids, and labels (10 each).
+    
     var data = [{
-      values:sample_10,
-      labels:otulabel_10,
+      values:otuData.map(d => d.sample_value),
+      labels:otuData.map(d=> d.otu_id),
+      hovertext: otuData.map(d => d.otu_label),
       type: 'pie'
     }];
-    
+ 
     var layout = {
+      showlegend:true,
       height: 600,
-      width: 1500
+      width: 1200
     };
-    
+ 
     Plotly.newPlot('pie', data, layout);
-  });
+ 
+ });
 }
 
  
