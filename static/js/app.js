@@ -36,10 +36,6 @@ function buildCharts(sample) {
      var otu_labels = sampleNames.otu_labels;
      var sample_values = sampleNames.sample_values;
     
-    // var otu_10 = otu_ids.slice(0,10);
-    // var otulabel_10 = otu_labels.slice(0,10);
-    // var sample_10 = sample_values.slice(0,10)
-
     otuData = [];
     otuData = otu_ids.map((d, i) => {
       return {otu_id: d, sample_value: sample_values[i], otu_label: otu_labels[i]}
