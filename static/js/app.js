@@ -35,7 +35,7 @@ function buildCharts(sample) {
      var otu_ids = sampleNames.otu_ids;
      var otu_labels = sampleNames.otu_labels;
      var sample_values = sampleNames.sample_values;
-    //  //otu10 i distinct color b/c not being used
+    
     // var otu_10 = otu_ids.slice(0,10);
     // var otulabel_10 = otu_labels.slice(0,10);
     // var sample_10 = sample_values.slice(0,10)
